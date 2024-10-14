@@ -1,0 +1,24 @@
+{
+  "name": "langgraph-agent",
+  "version": "1.0.0",
+  "description": "Langchain-based agent project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx agent.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.3.5",
+    "@langchain/core": "^0.3.10",
+    "@langchain/langgraph": "^0.2.14",
+    "@langchain/openai": "^0.3.7",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "tsx": "^3.10.1",
+    "typescript": "^5.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
