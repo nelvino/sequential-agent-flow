@@ -1,35 +1,31 @@
 export class State {
-  private data: Record<string, any>;
+  private state: { [key: string]: any };
+  private history: Array<{ [key: string]: any }>;
 
   constructor() {
-    this.data = {};
+    this.state = {};
+    this.history = [];
   }
 
   set(key: string, value: any) {
-    console.log(`Setting state for key: ${key}, value: ${JSON.stringify(value)}`);
-    this.data[key] = value;
+    this.state[key] = value;
+    this.trackHistory(key, value); // Track each change to maintain full project history
   }
 
   get(key: string) {
-    const value = this.data[key];
-    console.log(`Getting state for key: ${key}, value: ${JSON.stringify(value)}`);
-    return value;
+    return this.state[key];
   }
 
   getAll() {
-    return this.data;
+    return this.state;
   }
 
-  setIsCompleted(value: boolean) {
-    this.set('isCompleted', value);
+  getHistory() {
+    return this.history;
   }
 
-  isCompleted(): boolean {
-    return this.get('isCompleted') || false;
-  }
-
-  // Add a method to check if a key exists in the state
-  hasKey(key: string): boolean {
-    return key in this.data;
+  trackHistory(key: string, value: any) {
+    const timestamp = new Date().toISOString();
+    this.history.push({ key, value, timestamp });
   }
 }

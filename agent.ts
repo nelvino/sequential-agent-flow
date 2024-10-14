@@ -8,6 +8,7 @@ import { SoftwareDeveloper } from './agents/SoftwareDeveloper';
 import { CodeReviewer } from './agents/CodeReviewer';
 import { ProjectManager } from './agents/ProjectManager';
 import { SupervisorLLMNode } from './agents/SupervisorLLMNode';
+import { FlowManager } from './components/FlowManager'; // Import updated FlowManager
 
 async function runFlow() {
   const state = new State();
@@ -19,7 +20,7 @@ async function runFlow() {
   const end = new End({ state });
 
   let iterationCount = 0;
-  const maxIterations = 10;
+  const maxIterations = 20;
 
   await start.invoke();
 
@@ -47,6 +48,10 @@ async function runFlow() {
 
     console.log('Iteration:', iterationCount, 'Next step:', next, 'Current phase:', state.get('currentPhase'));
   }
+
+  // After flow completion, export the entire flow (state + history) as JSON
+  const flowManager = new FlowManager(state);
+  await flowManager.saveFlowAsJson('flowData.json');  // Save flow to a file
 }
 
 runFlow().catch(console.error);
